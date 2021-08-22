@@ -1,126 +1,71 @@
 /*
-1. Дан код:
-
-Почему код даёт именно такие результаты?
+1. С помощью цикла while вывести все простые числа в промежутке от 0 до 100.
 */
 
-// var a = 1, b = 1, c, d;
-// c = ++a; alert(c);           // 2 -> сначала увеличивается на 1 потом присваивается с
-// d = b++; alert(d);           // 1 -> сначала присваивается d потом увеличивается на 1 потом присваивается с
-// c = (2+ ++a); alert(c);      // 5 -> на предыдущем шаге "а"=2 и на этом шаге за счет префиксного инкремента "а" = 3 получится (2 + 3) = 5
-// d = (2+ b++); alert(d);      // 4 ->на предыдущем шаге "b"=2 и на этом шаге за счет постфиксного инкремента "d" = 2 (после увеличится на 1) получится (2 + 2) = 4
-// alert(a);                    // 3 
-// alert(b);                    // 3 
+let number = 2;
 
-/*
-2. Чему будет равен x в примере ниже?
-
-*/
-
-var a1 = 2;
-var x = 1 + (a1 *= 2); //5
-
-/*
-3. Объявить две целочисленные переменные a и b и задать им произвольные начальные значения. Затем написать скрипт, который работает по следующему принципу:
-если a и b положительные, вывести их разность;
-если а и b отрицательные, вывести их произведение;
-если а и b разных знаков, вывести их сумму; ноль можно считать положительным числом.
-*/
-
-let a = GetRandInt(-20, 20);
-let b = GetRandInt(-20, 20);
-
-if ((a > 0) && ( b > 0)) {
-    alert(`a - b = ${a - b}`);
-} else if ((a < 0) && ( b < 0)){
-    alert(`a * b = ${a * b}`);
-}else{
-    alert(`a + b = ${a + b}`);
+while (number < 100) {
+   if (isSimpleNumber(number)) {
+    console.log(number);
+   }
+    number++;
 }
 
-function GetRandInt( minNumb, maxNumb) {
-    let rand = minNumb - 0.5 + Math.random() * (maxNumb - minNumb + 1);
-  return Math.round(rand);
-}
-
-/*
-4. Присвоить переменной а значение в промежутке [0..15].
- С помощью оператора switch организовать вывод чисел от a до 15.
-*/
-
-let a2;
-let key = "1";
-switch (key) {
-    case "1":
-        a2 = 1;
-        break;
-    case "2":
-        a2 = 2;
-        break;
-    case "3":
-        a2 = 3;
-        break;
-    case "4":
-        a2 = 4;
-        break;
-    case "15":
-        a2 = 15;
-        break;
-    default:
-        break;
-}
-
-/*
-5. Реализовать основные 4 арифметические операции в виде функций с двумя параметрами.
- Обязательно использовать оператор return.
-*/
-
-function Sum(num1, num2) {
-    return num1 + num2;
-}
-
-function Diff(num1, num2) {
-    return num1 - num2;
-}
-
-function Mult(num1, num2) {
-    return num1 * num2;
-}
-
-function Division(num1, num2) {
-    return num1 / num2;
+function isSimpleNumber(number) {
+     
+    for (let i = 2; i < number; i++){
+        if (number % i == 0){
+            return false;
+        } 
+    }       
+    return true;
 }
 
 
 /*
-6. Реализовать функцию с тремя параметрами: function mathOperation(arg1, arg2, operation),
- где arg1, arg2 – значения аргументов, 
- operation – строка с названием операции. 
- В зависимости от переданного значения операции выполнить одну из арифметических операций
-  (использовать функции из пункта 5) и вернуть полученное значение (использовать switch).
+2. С этого урока начинаем работать с функционалом интернет-магазина. 
+Предположим, есть сущность корзины. Нужно реализовать функционал подсчета стоимости
+ корзины в зависимости от находящихся в ней товаров. 
+3. Товары в корзине хранятся в массиве. Задачи:
+    a) Организовать такой массив для хранения товаров в корзине;
+    b) Организовать функцию countBasketPrice, которая будет считать стоимость корзины.
 */
 
-function mathOperation(arg1, arg2, operation){
-    switch (operation) {
-        case "+":
-            Sum(arg1, arg2);
-            break;
-        case "-":
-            Diff(arg1, arg2);
-         break;
-        case "*":
-            Mult(arg1, arg2);
-            break;
-        case "/":
-            Division(arg1, arg2);
-            break;
-        default:
-            break;
-    }
-}
+// let basketOfGoods = [
+// {name:"product1", price:100, amount:3},
+// {name:"product2", price:100, amount:1},
+// {name:"product3", price:100, amount:2}];
+
+// console.log(countBasketPrice(basketOfGoods));
+
+// function countBasketPrice(basketOfGoods) {
+//     let sum = 0;
+
+//     for (let i = 0; i < basketOfGoods.length; i++) {
+        
+//         sum += basketOfGoods[i].price * basketOfGoods[i].amount;
+//     }
+
+//     return sum;
+// }
 
 /*
-7. *Сравнить null и 0. Попробуйте объяснить результат.
+ 4. *Вывести с помощью цикла for числа от 0 до 9, не используя тело цикла
 */
 
-console.log(null == 0);// типы объектов разные
+// for (let i = 0; i < 10; console.log(i++) ) {
+    
+// }
+
+/*
+5. *Нарисовать пирамиду с помощью console.log,
+ как показано на рисунке, только у вашей пирамиды должно быть 20 рядов, а не 5:
+*/
+
+// let count = "*";
+// let i =1;
+// while (i <= 20) {
+//     console.log(count);
+//     count += "*"
+//     i++;
+// }

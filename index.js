@@ -1,32 +1,57 @@
-/*
-1. Задать температуру в градусах по Цельсию. 
-Вывести в alert соответствующую температуру в градусах по Фаренгейту. Подсказка: расчёт идёт по формуле: Tf = (9 / 5) * Tc + 32, 
-где Tf – температура по Фаренгейту, Tc – температура по Цельсию
+
+/*1. Написать функцию, преобразующую число в объект. 
+Передавая на вход число от 0 до 999, мы должны получить на выходе объект, 
+в котором в соответствующих свойствах описаны единицы, десятки и сотни. 
+Например, для числа 245 мы должны получить следующий объект: 
+{‘единицы’: 5, ‘десятки’: 4, ‘сотни’: 2}. 
+Если число превышает 999, необходимо выдать соответствующее сообщение с 
+помощью console.log и вернуть пустой объект.
+
 */
-let Tc = prompt("Введите температуру в Цельсиях:");
-if( !isNaN(Tc)){
-    let Tf = (9/5)*Tc + 32;
-    alert(`Температура в Фаренгейтах - ${Tf}`);
-}else{
-    alert("Введите число!");
+
+printObjNumber();
+
+function printObjNumber() {
+
+    for (let i = 0; i < 1001; i++) {
+        
+        if (i < 999) {
+            const numberArr = createNumberArr(i);
+            console.log(createObjNumber(numberArr));
+        }else{
+            console.log({})
+        }
+        
+    }
 }
 
-/*
-  3. Объявить две переменные: admin и name. Записать в name строку "Василий";
-   Скопировать21 значение из name в admin. Вывести admin (должно вывести «Василий»).
- */
+function createObjNumber(numberArr) {
+    const strArr = ["единицы", "десятки", "сотни"];
+    let objNumber = {};
+    for (let i = 0; i < numberArr.length; i++) {
+        
+        objNumber[strArr[i]] = numberArr[i];
+    }
+    return objNumber;
+}
 
-let admin;
-let name = "Василий";
+function createNumberArr(number) {
+    let x = number;
+    let i = 10;
+    let numberArr = [];
+    if(x == 0){
+        numberArr.push(x);
+        return numberArr;
+    }
+    while (x >= i / 10)
+    {
+        const a = x % i;
+        const b = x % (i / 10);
+        const c = (i/10);
+        const number = (a - b) /c;
+        numberArr.push(number);
+        i *= 10;
+    }
 
-admin = name;
-
-alert(admin);
-
-/*
- 4. *Чему будет равно JS-выражение 1000 + "108"
- */
-
- let num = 1000 + "108"; //1000108
- alert(num);
- 
+    return numberArr;
+}

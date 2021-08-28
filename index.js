@@ -1,57 +1,95 @@
+createChessBoard();
 
-/*1. Написать функцию, преобразующую число в объект. 
-Передавая на вход число от 0 до 999, мы должны получить на выходе объект, 
-в котором в соответствующих свойствах описаны единицы, десятки и сотни. 
-Например, для числа 245 мы должны получить следующий объект: 
-{‘единицы’: 5, ‘десятки’: 4, ‘сотни’: 2}. 
-Если число превышает 999, необходимо выдать соответствующее сообщение с 
-помощью console.log и вернуть пустой объект.
+function createChessBoard() {
+    const BOARD_LETTERS = ["", "a", "b", "c", "d", "e", "f", "g", "h"];
+    const COLLECTION_PAWN_CHAR = ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"];
+    const COLLECTION_CHAR = ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
 
-*/
+    let hwChessBoardDiv = document.getElementById("hw-chess-board");
 
-printObjNumber();
+    let chessBoardTable = document.createElement("table");
+    chessBoardTable.className = "chess-board";
 
-function printObjNumber() {
+    let tableTBody = document.createElement("tbody");
+    tableTBody.id = "chess-table"
 
-    for (let i = 0; i < 1001; i++) {
+    hwChessBoardDiv.appendChild(chessBoardTable);
+    chessBoardTable.appendChild(tableTBody);
+
+    let table = document.getElementById('chess-table');
+
+    createLettersRow();
+
+    for (let i = 8; i > 0; i--) {
         
-        if (i < 999) {
-            const numberArr = createNumberArr(i);
-            console.log(createObjNumber(numberArr));
+        if (i%2 == 0) {
+            
+            createColorCellRow(i, true);
         }else{
-            console.log({})
+            createColorCellRow(i, false);
         }
         
     }
-}
 
-function createObjNumber(numberArr) {
-    const strArr = ["единицы", "десятки", "сотни"];
-    let objNumber = {};
-    for (let i = 0; i < numberArr.length; i++) {
+    addChessCherInCell(1, COLLECTION_CHAR);
+    addChessCherInCell(2, COLLECTION_PAWN_CHAR);
+    addChessCherInCell(7, COLLECTION_PAWN_CHAR);
+    addChessCherInCell(8, COLLECTION_CHAR);
+
+
+    function createLettersRow() {
+        let tableTR = document.createElement("tr");
+        tableTBody.appendChild(tableTR);
+
+        for (let i = 0; i < BOARD_LETTERS.length; i++) {
+            let tableTH = document.createElement("th");
+            tableTH.innerHTML = BOARD_LETTERS[i];
+            tableTR.appendChild(tableTH);
+        }
+    }
+
+    function createColorCellRow(rowNumber, isLightFirst) {
+        let tableTR = document.createElement("tr");
+        tableTBody.appendChild(tableTR);
+        let tableTH = document.createElement("th");
+        tableTH.innerHTML = rowNumber;
+
+        tableTR.appendChild(tableTH);
+        for (let i = 0; i < 8; i++) {
+            if (isLightFirst) {
+                if (i % 2 == 0) {
+                    let tableTD = document.createElement("td");
+                    tableTD.className = "light";
+                    //tableTH.innerHTML = "";
+                    tableTR.appendChild(tableTD);
+                } else {
+                    let tableTD = document.createElement("td");
+                    tableTD.className = "dark";
+                    //tableTH.innerHTML = "";
+                    tableTR.appendChild(tableTD);
+                }
+            } else {
+                if (i % 2 == 0) {
+                    let tableTD = document.createElement("td");
+                    tableTD.className = "dark";
+                    //tableTH.innerHTML = "";
+                    tableTR.appendChild(tableTD);
+                } else {
+                    let tableTD = document.createElement("td");
+                    tableTD.className = "light";
+                    //tableTH.innerHTML = "";
+                    tableTR.appendChild(tableTD);
+                }
+            }
+        }
+    }
+
+    function addChessCherInCell(index, chessChars) {
         
-        objNumber[strArr[i]] = numberArr[i];
-    }
-    return objNumber;
-}
+        for (let i = 0; i < chessChars.length; i++) {
+            let cell = table.rows[index].cells[i + 1];
+            cell.innerHTML = chessChars[i];
 
-function createNumberArr(number) {
-    let x = number;
-    let i = 10;
-    let numberArr = [];
-    if(x == 0){
-        numberArr.push(x);
-        return numberArr;
+        }
     }
-    while (x >= i / 10)
-    {
-        const a = x % i;
-        const b = x % (i / 10);
-        const c = (i/10);
-        const number = (a - b) /c;
-        numberArr.push(number);
-        i *= 10;
-    }
-
-    return numberArr;
 }
